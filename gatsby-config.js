@@ -47,7 +47,6 @@ module.exports = {
         downloadLocalImages: true,
       },
     },
-  `gatsby-plugin-algolia`,
     {
       resolve: `gatsby-source-open-exchange-rates`,
       options: {

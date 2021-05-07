@@ -5,11 +5,11 @@ import { orderBy } from 'lodash';
 import { SearchHit, FilterOverlay, FilterToggle } from './components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-
+/*
 const client = algoliasearch(
     process.env.GATSBY_ALGOLIA_APP_ID,
     process.env.GATSBY_ALGOLIA_API_KEY
-  );
+  );*/
 
 const SearchPage = () => {
 
@@ -19,7 +19,7 @@ const SearchPage = () => {
 
         <div className="w-full">
 
-            <InstantSearch searchClient={client} indexName={process.env.GATSBY_ALGOLIA_INDEX_NAME}>
+            {/*<InstantSearch searchClient={client} indexName={process.env.GATSBY_ALGOLIA_INDEX_NAME}>
 
                 <div className="m-3 pb-2 flex flex-row flex-auto items-center border-b-2 border-primary-600">
 
@@ -69,7 +69,7 @@ const SearchPage = () => {
 
                 <Pagination/>
 
-            </InstantSearch>
+    </InstantSearch>*/}
 
         </div>
     )
