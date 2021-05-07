@@ -1,14 +1,14 @@
 import React from 'react'
 
-const Search = () => {
+const Trade = () => {
 
     return(
 
         <div>
             
         </div>
- 
+
     )
 }
-  
-export default Search
+
+export default Trade

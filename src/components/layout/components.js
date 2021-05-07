@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { StyledBody } from './components.styled'
 
 const Header = ({ children }) => {
     return(
@@ -14,9 +13,9 @@ const PageWrapper = ({ children }) => {
     useEffect(() => window.scrollTo(0, 0), [])
 
     return(
-        <StyledBody>
-            <main>{children}</main>
-        </StyledBody>
+        <main className="page-wrapper">
+            {children}
+        </main>
     )
 }
 

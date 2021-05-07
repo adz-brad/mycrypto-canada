@@ -44,33 +44,25 @@ div {
 `;
 
 export const StyledMenu = styled.div`
-display:block;
-height:calc( 100% - 70px );
-max-width:350px;
-transition: 0.3s ease;
-overflow-y:scroll;
-@media screen and (max-width:1024px){
-max-width:400px;
-left:${({ open }) => open ? '0' : '-400px'};
-}
-@media screen and (min-width:1024px){
-  height:calc( 100% - 100px );
-}
-`;
+  display:flex;
+  transition: 0.3s ease;
 
-
-
-export const StyledCartOverlay = styled.div`
-display:block;
-height:calc( 100% - 70px)!important;
-right:${({ open }) => open ? '0' : '-500px'};
-max-width: 500px;
-transition: 0.3s ease;
-overflow-y:scroll;
-@media screen and (min-width:1024px){
-  height:calc( 100% - 100px)!important;
+  @media screen and (min-width:1025px){
+    flex-direction:row;
+    align-items:center;
   }
+
+  @media screen and (max-width:1024px){
+    flex-direction:column;
+    width:100vw;
+    top:70px;
+    left:${({ open }) => open ? '0' : '-100vw'};
+  }
+
+
+
 `;
+
 
 export const StyledNav = styled.nav`
   height:70px;

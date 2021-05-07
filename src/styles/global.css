@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,8 +7,26 @@
 
     /* ----- BASE ----- */
 
+    body{
+        font-family: 'Poppins', sans-serif;
+        background-color: #111;
+        color:#eee;
+    }
+
+    .font-headers{
+        font-family: 'Rajdhani', sans-serif;
+    }
+
+    h1,h2,h3{
+        @apply font-headers;
+    }
+
+    p{
+        @apply text-sm lg:text-base ;
+    }
+
     *:focus{
-        outline-color: black;}
+        outline-color: white;}
 
     li, ul {
         @apply list-disc list-inside;}
@@ -22,42 +40,27 @@
         }}
 
     .button{
-        @apply mx-auto text-white font-semibold rounded-md shadow-sm bg-primary-700 hover:bg-primary-600;}
+        @apply font-headers px-3 py-2 mx-auto text-white font-semibold rounded-md shadow-sm;}
 
+    .page-wrapper{
+        padding-top:70px;
+    }
 
-    /* ----- PRODUCTS ----- */
+    @media screen and (min-width:1024px){
+        .page-wrapper{
+            padding-top:100px;
+            max-width:1440px;
+            margin:10px auto;
+        }
+    }
 
-    .product-description li{
-        @apply py-1 text-lg;}
+    /* ----- NAV ----- */
 
-    .product-description table{
-        @apply hidden;}
+    .nav-link{
+        @apply text-primary-900 font-bold text-3xl lg:text-white lg:text-2xl lg:font-medium hover:text-primary-600 border-b-2 border-transparent hover:border-red-600 mx-3 my-1;}
 
-    .product-specs a, .product-specs p, .product-specs ul, .product-specs li, .product-specs img{
-        @apply hidden}
-
-    .product-specs table{
-        @apply w-full max-w-xl;}
-
-    .product-specs table tbody tr{
-        @apply border-b;}
-
-    .react-tabs__tab--selected>h4{
-        @apply text-white;}
-
-    .react-tabs__tab--selected{
-        background:none!important;
-        color:white!important;}
-    
-    .react-tabs__tab--selected{
-        @apply bg-primary-700  !important;}
-
-    .tab-panel{
-        @apply hidden;}
-
-    .product-tabs li{
-        @apply rounded-md md:rounded-b-none hover:bg-primary-600 hover:text-white;}
-
+    .social-link{
+        @apply text-primary-900 hover:text-primary-500 lg:text-white mx-2;}
 
     /* ----- SCROLLBAR ----- */
 
@@ -174,85 +177,22 @@
         @apply text-white opacity-100 !important;}
 
 
-    /* ----- CONTACT ----- */
-
-    .contact-form .personal{
-        @apply flex flex-col xl:flex-row xl:items-center;}
-
-    .contact-form .personal .form-input{
-        @apply w-full xl:w-1/2 ;}
-
-    .contact-form .form-input{
-        @apply px-3 py-5 ;}
-
-    .contact-form h3{
-        @apply text-2xl font-semibold px-2;}
-
-    .contact-form input, .contact-form textarea{
-        @apply w-full text-xl p-2 border-b border-primary-700 focus:border-opacity-0 ;}
-
-    .contact-form textarea{
-        resize:none;}
-
-
-    /* ----- AUCTION ----- */
-
-    .countdown-number{
-        @apply text-3xl font-semibold mr-1 text-primary-700;
-    }
-
-    .countdown-label{
-        @apply text-2xl mr-3;
-    }
-
-
-    /* ----- LANDING ----- */
-
-    .landing{
-        position:relative;
-        height:400px;
-        width:100%;
-        padding:10px;
-    }
-
-    .landing-bg{
-        height:100%;
-        overflow:hidden;
-        border-radius:5px; 
-    }
-        
-    .landing-caption{
-        position:absolute;
-        top:50%;
-        left:50%;
-        transform: translate(-50%, -50%);
-        width:calc( 100% - 50px);
-        height:calc( 100% - 50px);
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        align-items:center;
-        background-color:rgba(17,17,17,0.7);
-        border-radius:5px;
-        box-shadow:0px 0px 40px 10px rgba(255, 255, 255, 0.5);
-    }
-
     /* ----- CARDS ----- */
 
     .card{
-        @apply flex flex-col items-center rounded-md shadow-lg border border-black border-opacity-10 m-4 p-3 transform hover:scale-105 h-80;
+        @apply flex flex-col items-center rounded-lg shadow-lg bg-secondary-100 m-4 p-3 transform hover:scale-105 h-80;
     }
 
     .card-header{
-        @apply text-3xl font-semibold  w-11/12 text-center pb-2;
+        @apply text-4xl font-bold text-black font-headers text-center pb-2;
     }
 
     .card-icon{
-        @apply text-8xl text-primary-500 filter drop-shadow-lg my-auto;
+        @apply text-9xl text-primary-800 filter drop-shadow-lg my-auto;
     }
 
     .card-caption{
-        @apply text-lg leading-snug font-light  pt-2 w-11/12;
+        @apply text-base leading-tight font-normal text-black  p-2;
     }
 
     .powered-by{

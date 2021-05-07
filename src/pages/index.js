@@ -1,60 +1,37 @@
 import React from "react"
-import { graphql, useStaticQuery, Link } from 'gatsby'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { BgImage } from "gbimage-bridge"
-import Seo from '../components/seo/SEO'
+import { useStaticQuery, graphql } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import Button from '../components/button/button'
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { faTags, faUserCheck, faShippingFast, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons'
-import ProductCard from '../components/products/productCard'
-import ProductGrid from '../components/products/productGrid'
+import Seo from '../components/seo/SEO'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCanadianMapleLeaf } from '@fortawesome/free-brands-svg-icons'
  
 const Index = () => {
 
   const data = useStaticQuery(graphql`
-  {
-      siteID: graphCmsSiteId {
-          logo {
-          localFile {
-              url
-              }
-          }
-      },
-      graphCmsLandingPage {
-        header
-        caption
-        image{
-          localFile{
-            childImageSharp{
-              gatsbyImageData(quality: 100, layout: CONSTRAINED, placeholder: BLURRED)
-            }
-          }
-        }
-      },
-      products: allShopifyProduct(filter: {availableForSale: {eq: true}}) {
+    {
+      news: allGraphCmsPost(filter: {category: {eq: News}} sort: {fields: publishedAt, order: DESC}, limit: 1) {
         nodes {
+            id
             title
-            handle 
-            shopifyId
-            variants {
-              price
-            }
-            images {
+            excerpt
+            slug
+            coverImage {
               localFile {
-                url
                 childImageSharp {
-                  gatsbyImageData(quality: 100, layout: CONSTRAINED, placeholder: TRACED_SVG)
+                  gatsbyImageData(quality: 100, layout: CONSTRAINED, placeholder: BLURRED)
                 }
               }
             }
           }
-      },
-      collections: allShopifyCollection(
-        filter: {title: {in: ["Cooking Equipment", "Refrigeration", "Beverage", "Food Prep", "Dishwashing", "Storage", "Workspaces", "Smallwares"]}}) {
+        },
+      blog: allGraphCmsPost(filter: {category: {eq: Blog}, featured: {eq: true}} sort: {fields: publishedAt, order: DESC}, limit: 1) {
         nodes {
+          id
           title
-          handle
-          image {
+          excerpt
+          slug
+          coverImage {
             localFile {
               childImageSharp {
                 gatsbyImageData
@@ -62,11 +39,12 @@ const Index = () => {
             }
           }
         }
-      },
-  }
-`)
+      }
+    }
+  `)
 
-  const bgImage = getImage(data.graphCmsLandingPage.image.localFile.childImageSharp.gatsbyImageData);
+  const latestNews = data.news.nodes;
+  const featuredBlog = data.blog.nodes;
 
   const sharingUrl = typeof window !== 'undefined' ? window.location.href : '';
 
@@ -75,108 +53,87 @@ const Index = () => {
       <React.Fragment>
 
           <Seo
-              pageTitle="Adrenalize e-Commerce"
-              pageDescription="Home Page for Adrenalize e-Commerce"
-              pageKeywords="Home, Adrenalize e-Commerce"
-              pageImage={data.siteID.logo.localFile.url}
+              pageTitle="Home"
+              pageDescription="Home Page for myCrypto Canada"
+              pageKeywords="Home, myCrypto, Canada"
+              pageImage=""
               pageUrl={sharingUrl}
           />
 
 
-            <div className="landing">            
-              <BgImage image={bgImage} className="landing-bg">
-                <div className="landing-caption">
-                  <h1 className="text-white font-bold text-7xl filter drop-shadow-lg mt-auto border-b-4 border-primary-700">{data.graphCmsLandingPage.header}</h1> 
-                  <h2 className="text-white font-medium text-3xl filter drop-shadow-lg">Welcome to your business' new home on the web!</h2>
-                  <span className="text-white font-normal text-xl py-4 max-w-6xl">We're so happy you chose to work with us, because just like you, we're in the business of helping others. At Adrenalize Digital, we build more than just websites - we build highly-functinal digital commerce apps that are designed to deliver. So go on then, have a look around and let us know what you think! </span>
-                  <Button className="my-auto px-4 py-3 text-3xl font-medium shadow-lg" text="Find Out More"/>
-                </div>                      
-              </BgImage>          
+          <div className="flex flex-col items-center mt-2 p-2">
+            <div className="flex items-end border-b-2 border-primary-600 pb-1">
+              <h1 className="text-5xl font-bold mr-2">myCrypto</h1>
+              <h1 className="text-3xl tracking-tight uppercase mb-1">Canada</h1>
+              <FontAwesomeIcon icon={faCanadianMapleLeaf} className="text-3xl pb-1 ml-1 text-red-600 mb-2"/>
             </div>
+            <h2 className="text-xl font-semibold pt-1">Cryptocurrency Resources for Canadians</h2>      
+          </div>
 
 
             <div className="flex flex-col justify-center p-2">
 
-              <div className="grid grid-cols-2 lg:grid-cols-4 cursor-pointer">
+              <div className="p-1">
 
-                <div className="card">
-                  <span className="card-header">Quality Products</span>
-                  <Icon icon={faTags} className="card-icon"/>
-                  <span className="card-caption">You're sure to find what you're looking for in our extensive selection of top-quality products.</span>
-                </div>
-
-                <div className="card">
-                  <span className="card-header">Superior Service</span>
-                  <Icon icon={faUserCheck} className="card-icon"/>
-                  <span className="card-caption">We go beyond to ensure you have the best customer experience & support possible.</span>
-                </div>
-
-                <div className="card">
-                  <span className="card-header">Fast Shipping</span>
-                  <Icon icon={faShippingFast} className="card-icon"/>
-                  <span className="card-caption">Speedy shipping options to make sure you receive your products right when you need them.</span>
-                </div>
-
-                <div className="card">
-                  <span className="card-header">Financing Available</span>
-                  <Icon icon={faHandHoldingUsd} className="card-icon"/>
-                  <span className="card-caption">We work together with top industry financiers to help make our products available to businesses of all types.</span>
-                </div>
+                <p className="my-3">Are you among the millions of Canadians who are still unsure about the importance of cryptocurrency in modern economics? <strong>You aren't alone.</strong></p> 
                 
+                <p className="my-3">Every day, digital currencies known as "cryptocurrency" are traded across the globe, and more than likely you've heard of a few. From Bitcoin to Ethereum, these currencies combine to a total value in the TRILLIONS of dollars, with many of them sure bets to be major players in future world markets.</p>
+
+                <p className="my-3">Isn't it time you got your piece of the pie? Learn how you can start leveraging cryptocurrency to grow your wealth today!</p>
+              
               </div>
 
-              <div className="p-2 lg:p-4 divide-primary-600 divide-y-2 mx-auto w-full">
+              <Button text="Learn More" url="/learn" ariaLabel="" className=" text-2xl my-3 bg-red-600 hover:bg-red-700" />
 
-                <div className="pb-1">
-                    <h1 className="text-2xl md:text-3xl lg:text-5xl font-medium pb-2">Featured Products</h1>
-                    <p className="text-base md:text-lg lg:text-xl leading-snug">Check out our latest selection of featured products!</p>
-                </div>
+              <div className="flex flex-col lg:flex-row">
 
-                <ProductGrid>
+                <div className="p-1 mx-2 lg:w-1/2">
 
-                {data.products.nodes.map((product) => {
+                  <h1 className="text-3xl lg:text-4xl font-bold my-5 border-b border-primary-600 pt-1">Latest News</h1>
 
+                  {latestNews.map((article) => {
                     return(
 
-                        <React.Fragment>
+                      <article className="shadow-lg rounded-lg flex flex-col items-center" key={article.id}>
+
+                        <GatsbyImage image={article.coverImage.localFile.childImageSharp.gatsbyImageData} alt={`${article.title} Image`} className="rounded-t-lg max-h-80"/>
+                      
+                        <h1 className="text-2xl lg:text-4xl font-semibold border-b border-primary-600 w-full mt-3">{article.title}</h1>
+
+                        <p className="my-1 leading-tight">{article.excerpt}</p>
+
+                        <Button text="Read More" url={`/news/${article.slug}`} className="text-xl lg:text-2xl bg-primary-900 hover:bg-primary-800 my-4" ariaLabel=""/>
                         
-                        <ProductCard
-                            title={product.title}
-                            image={product.images}
-                            price={`${product.variants.map((variant) => variant.price)}`}
-                            url={product.handle}
-                            key={product.shopifyId}
-                        />   
-
-                        </React.Fragment>                        
+                      </article>
                     )
-                })}
+                  })}
 
-                </ProductGrid>
-                
-            </div>
-
-            <div className="p-2 lg:p-4 divide-primary-600 divide-y-2 mx-auto w-full">
-
-                <div className="pb-1">
-                    <h1 className="text-2xl md:text-3xl lg:text-5xl font-medium pb-2">Browse By Category</h1>
                 </div>
 
-                <ProductGrid>
+                <div className="p-1 mx-2 lg:w-1/2">
 
-                {data.collections.nodes.map((collection) => {
+                  <h1 className="text-3xl lg:text-4xl font-bold my-5 border-b border-primary-600 pt-1">Featured Blog</h1>
 
-                  return(
-                    <Link className="m-2 p-2 rounded-md flex flex-col items-center transform hover:scale-105" to={collection.handle} alt="">
-                        <GatsbyImage image={collection.image.localFile.childImageSharp.gatsbyImageData} className="rounded-md shadow-md w-full" alt=""/>
-                        <span className="text-xl font-medium">{collection.title}</span>
-                    </Link>
-                  )
-                })}
+                  {featuredBlog.map((post) => {
+                    return(
 
-                </ProductGrid>
-                
-            </div>
+                      <article className="shadow-lg rounded-lg flex flex-col items-center" key={post.id}>
+
+                        <GatsbyImage image={post.coverImage.localFile.childImageSharp.gatsbyImageData} alt={`${post.title} Image`} className="rounded-t-lg max-h-80"/>
+                      
+                        <h1 className="text-2xl lg:text-4xl font-semibold border-b border-primary-600 w-full mt-3">{post.title}</h1>
+
+                        <p className="my-1 leading-tight">{post.excerpt}</p>
+
+                        <Button text="Read More" url={`/blog/${post.slug}`} className="text-xl lg:text-2xl bg-primary-900 hover:bg-primary-800 my-4" ariaLabel=""/>
+                        
+                      </article>
+                    )
+                  })}
+
+                </div>
+ 
+              </div>      
 
           </div>
 

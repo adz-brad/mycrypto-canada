@@ -16,7 +16,7 @@ const Seo = ({ children, pageDescription, pageTitle, pageImage, pageUrl, pageKey
       }
     }
   `);
-
+  
   const siteData = data.site.siteMetadata;
 
   return (

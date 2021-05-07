@@ -1,13 +1,12 @@
 import React from 'react'
 import { Header, PageWrapper } from './components'
 import Navbar from '../../components/navigation/navbar'
-import ContextProvider from '../../provider/ContextProvider'
 
 
 function Layout({ children, pageContext: { page } }) {
     return (
 
-      <ContextProvider>
+      <React.Fragment>
 
         <Header>
           <Navbar/>
@@ -17,7 +16,7 @@ function Layout({ children, pageContext: { page } }) {
           {children}
         </PageWrapper>
 
-      </ContextProvider>
+      </React.Fragment>
       
     )
   }

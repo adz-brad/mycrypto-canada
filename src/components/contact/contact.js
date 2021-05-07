@@ -1,24 +1,9 @@
 import React, { useState }  from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
 import emailjs from 'emailjs-com';
 import { toast } from 'react-toastify';
-import Seo from '../components/seo/SEO'
 
 const Contact = () => {
 
-    const data = useStaticQuery(graphql`
-    {
-        siteID: graphCmsSiteId {
-            logo {
-            localFile {
-                url
-                }
-            }
-        }
-    }
-	`)
-
-    const sharingUrl = typeof window !== 'undefined' ? window.location.href : '';
 
     const [name, setName ] = useState("");
     const [email, setEmail ] = useState("");
@@ -108,14 +93,6 @@ const Contact = () => {
     return(
 
         <div className="p-2 lg:p-4 mx-auto w-full h-full">
-
-            <Seo
-                pageTitle="Contact"
-                pageDescription="Contact Page for Adrenalize e-Commerce"
-                pageKeywords="Contact, Adrenalize e-Commerce"
-                pageImage={data.siteID.logo.localFile.url}
-                pageUrl={sharingUrl}
-            />   
 
             <div className="pb-1 border-b-2 border-primary-700">
                 <h1 className="text-2xl md:text-3xl lg:text-5xl font-medium pb-2">Contact Us</h1>

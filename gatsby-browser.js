@@ -1,9 +1,6 @@
 import React from 'react'
-import SimpleReactLightbox from 'simple-react-lightbox'
 import Layout from './src/components/layout/layout'
 import './src/styles/global.css'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client'
 import fetch from 'isomorphic-fetch'
 import { MDXProvider } from '@mdx-js/react'
@@ -18,16 +15,16 @@ const onServiceWorkerUpdateReady = () => {
   }
 }
 
-const httpLink = new HttpLink({
-  uri: process.env.GATSBY_GRAPHCMS_ENDPOINT,
+const blocktapLink = new HttpLink({
+  uri: process.env.GATSBY_BLOCKTAP_ENDPOINT,
   headers: {
-    Authorization: `Bearer ${process.env.GATSBY_GRAPHCMS_TOKEN}`,
+    Authorization: `Bearer ${process.env.GATSBY_BLOCKTAP_API_KEY}`,
   },
   fetch,
 });
 
-const apolloClient = new ApolloClient ({
-  link: httpLink,
+const blocktapClient = new ApolloClient ({
+  link: blocktapLink,
   cache: new InMemoryCache(),
   connectToDevTools: true,
 });
@@ -38,12 +35,9 @@ const wrapPageElement = ({ element, props }) => {
 
 const wrapRootElement = ({ element }) => {
   return (
-      <ApolloProvider client={apolloClient}>
+      <ApolloProvider client={blocktapClient}>
         <MDXProvider>
-          <SimpleReactLightbox>
               {element}
-              <ToastContainer/>  
-          </SimpleReactLightbox>
         </MDXProvider>
       </ApolloProvider>
   )
