@@ -15,7 +15,7 @@ const onServiceWorkerUpdateReady = () => {
   }
 }
 
-const blocktapLink = new HttpLink({
+const httpLink = new HttpLink({
   uri: process.env.GATSBY_BLOCKTAP_ENDPOINT,
   headers: {
     Authorization: `Bearer ${process.env.GATSBY_BLOCKTAP_API_KEY}`,
@@ -23,8 +23,8 @@ const blocktapLink = new HttpLink({
   fetch,
 });
 
-const blocktapClient = new ApolloClient ({
-  link: blocktapLink,
+const apolloClient = new ApolloClient ({
+  link: httpLink,
   cache: new InMemoryCache(),
   connectToDevTools: true,
 });
@@ -35,7 +35,7 @@ const wrapPageElement = ({ element, props }) => {
 
 const wrapRootElement = ({ element }) => {
   return (
-      <ApolloProvider client={blocktapClient}>
+      <ApolloProvider client={apolloClient}>
         <MDXProvider>
               {element}
         </MDXProvider>

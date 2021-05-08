@@ -1,9 +1,9 @@
 require('dotenv').config()
  
 module.exports = {
-  flags: {
+  /*flags: {
     FAST_DEV: true,
-  },
+  },*/
   siteMetadata: {
     title: `myCryptoCanada.ca`,
     description: `myCrypto Canada - Helping Canadians understand Crytocurrency`,

@@ -25,12 +25,10 @@ cadMarket: market(exchangeSymbol: "Kraken", baseSymbol: $baseSymbol, quoteSymbol
 
 const Coin = ({ pageContext: { coin } }) => {
 
-    const { data: marketData, error: marketDataError, loading: marketDataLoading }  = useQuery(BLOCKTAP_QUERY, {
+    const { data, error, loading }  = useQuery(BLOCKTAP_QUERY, {
         variables: { baseSymbol: `${coin.symbol }` },
-        pollInterval: 100
+        pollInterval: 1000
     });
-
-    console.log(marketData);
 
     return(
 
@@ -57,44 +55,44 @@ const Coin = ({ pageContext: { coin } }) => {
 
                 <div className="flex flex-row items-center">
                     <h2 className="text-xl font-bold mr-2 text-indigo-300">Market Cap:</h2>
-                    {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
-                    {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.asset ? (<span className="text-lg">$ {marketData.asset.marketCap}</span>) : null }
+                    {loading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
+                    {error ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                    {data?.asset ? (<span className="text-lg">$ {data.asset.marketCap}</span>) : null }
                 </div>
 
                 <div className="flex flex-row items-center">
                     <h2 className="text-xl font-bold mr-2 text-indigo-300">Market Cap Rank:</h2>
-                    {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
-                    {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.asset ? (<span className="text-lg">{marketData.asset.marketCapRank}</span>) : null }
+                    {loading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
+                    {error ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                    {data?.asset ? (<span className="text-lg">{data.asset.marketCapRank}</span>) : null }
                 </div>
 
                 <div className="flex flex-row items-center">
                     <h2 className="text-xl font-bold mr-2 text-indigo-300">Current Supply:</h2>
-                    {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
-                    {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.asset ? (<span className="text-lg">{marketData.asset.currentSupply}</span>) : null }
+                    {loading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
+                    {error ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                    {data?.asset ? (<span className="text-lg">{data.asset.currentSupply}</span>) : null }
                 </div>
 
                 <div className="flex flex-row items-center">
                     <h2 className="text-xl font-bold mr-2 text-indigo-300">Total Supply:</h2>
-                    {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
-                    {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.asset ? (<span className="text-lg">{marketData.asset.totalSupply}</span>) : null }
+                    {loading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
+                    {error ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                    {data?.asset ? (<span className="text-lg">{data.asset.totalSupply}</span>) : null }
                 </div>
 
                 <div className="flex flex-row items-center pt-2">
                     <h2 className="text-2xl font-bold mr-2 text-indigo-300">Price <small>(CAD)</small>:</h2>
-                    {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
-                    {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.cadMarket ? (<span className="text-xl">$ {parseFloat(marketData.cadMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
+                    {loading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
+                    {error ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                    {data?.cadMarket ? (<span className="text-xl">$ {parseFloat(data.cadMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
                 </div>
 
                 <div className="flex flex-row items-center">
                     <h2 className="text-2xl font-bold mr-2 text-indigo-300">Price <small>(USD)</small>:</h2>
-                    {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
-                    {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.usdMarket ? (<span className="text-xl">$ {parseFloat(marketData.usdMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
+                    {loading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
+                    {error ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                    {data?.usdMarket ? (<span className="text-xl">$ {parseFloat(data.usdMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
                 </div>
 
                 <span className="text-xs text-secondary-700 font-medium italic">CAD prices sourced from Kraken, USD prices sourced from CoinbasePro. Data courtesy of Blocktap.io.</span>
