@@ -30,6 +30,7 @@ const Coin = ({ pageContext: { coin } }) => {
         variables: { baseSymbol: `${coin.symbol }` },
         pollInterval: 1000
     });
+    console.log(marketData)
 
     return(
 
@@ -58,42 +59,42 @@ const Coin = ({ pageContext: { coin } }) => {
                     <h2 className="text-xl font-bold mr-2 text-indigo-300">Market Cap:</h2>
                     {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                     {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.asset ? (<span className="text-lg">$ {data.asset.marketCap}</span>) : null }
+                    {marketData?.asset ? (<span className="text-lg">$ {marketData.asset.marketCap}</span>) : null }
                 </div>
 
                 <div className="flex flex-row items-center">
                     <h2 className="text-xl font-bold mr-2 text-indigo-300">Market Cap Rank:</h2>
                     {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                     {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.asset ? (<span className="text-lg">{data.asset.marketCapRank}</span>) : null }
+                    {marketData?.asset ? (<span className="text-lg">{marketData.asset.marketCapRank}</span>) : null }
                 </div>
 
                 <div className="flex flex-row items-center">
                     <h2 className="text-xl font-bold mr-2 text-indigo-300">Current Supply:</h2>
                     {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                     {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.asset ? (<span className="text-lg">{data.asset.currentSupply}</span>) : null }
+                    {marketData?.asset ? (<span className="text-lg">{marketData.asset.currentSupply}</span>) : null }
                 </div>
 
                 <div className="flex flex-row items-center">
                     <h2 className="text-xl font-bold mr-2 text-indigo-300">Total Supply:</h2>
                     {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                     {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.asset ? (<span className="text-lg">{data.asset.totalSupply}</span>) : null }
+                    {marketData?.asset ? (<span className="text-lg">{marketData.asset.totalSupply}</span>) : null }
                 </div>
 
                 <div className="flex flex-row items-center pt-2">
                     <h2 className="text-2xl font-bold mr-2 text-indigo-300">Price <small>(CAD)</small>:</h2>
                     {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                     {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.cadMarket ? (<span className="text-xl">$ {parseFloat(data.cadMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
+                    {marketData?.cadMarket ? (<span className="text-xl">$ {parseFloat(marketData.cadMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
                 </div>
 
                 <div className="flex flex-row items-center">
                     <h2 className="text-2xl font-bold mr-2 text-indigo-300">Price <small>(USD)</small>:</h2>
                     {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                     {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                    {marketData?.usdMarket ? (<span className="text-xl">$ {parseFloat(data.usdMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
+                    {marketData?.usdMarket ? (<span className="text-xl">$ {parseFloat(marketData.usdMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
                 </div>
 
                 <span className="text-xs text-secondary-700 font-medium italic">CAD prices sourced from Kraken, USD prices sourced from Binance. Data courtesy of Blocktap.io.</span>
