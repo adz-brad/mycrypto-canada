@@ -52,6 +52,7 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "react-instantsearch-dom": "^6.10.3",
+    "react-line-graph": "^1.0.6",
     "react-share": "^4.4.0",
     "react-tabs": "^3.2.2",
     "smooth-scroll": "^16.1.3",
