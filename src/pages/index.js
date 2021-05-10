@@ -88,7 +88,7 @@ const Index = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-3 my-5">
 
-                <Link to="/currencies" className="card">
+                <Link to="/learn" className="card">
                     <span className="card-header">Educate</span>
                         <FontAwesomeIcon icon={faGraduationCap} className="card-icon"/>
                     <span className="card-caption">Learn all about cryptocurrencies - how they work and how they are traded.</span>

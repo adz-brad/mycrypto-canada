@@ -43,30 +43,26 @@ const Learn = () => {
                 <h1 className="text-3xl md:text-5xl font-bold font-headers tracking-tight pb-1">Resources</h1>     
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-5">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 my-5">
 
-                <Link to="/currencies" className="card">
+                <Link to="/currencies" className="card resources">
+                    <FontAwesomeIcon icon={faCoins} className="card-icon"/>
                     <span className="card-header">Currencies</span>
-                        <FontAwesomeIcon icon={faCoins} className="card-icon"/>
-                    <span className="card-caption">All of the most popular cryptocurrencies featuring live market data.</span>
                 </Link>
 
-                <Link to="/markets" className="card">
+                <Link to="/markets" className="card resources">
+                    <FontAwesomeIcon icon={faChartLine} className="card-icon"/>
                     <span className="card-header">Markets</span>
-                        <FontAwesomeIcon icon={faChartLine} className="card-icon"/>
-                    <span className="card-caption">All of the most relevant cryptocurrency markets.</span>
                 </Link>
 
-                <Link to="/glossary" className="card">
+                <Link to="/glossary" className="card resources">
+                    <FontAwesomeIcon icon={faBook} className="card-icon"/>
                     <span className="card-header">Glossary</span>
-                        <FontAwesomeIcon icon={faBook} className="card-icon"/>
-                    <span className="card-caption">Learn about all the important buzz words in the crypto world.</span>
                 </Link>
 
-                <Link to="/faq" className="card">
-                    <span className="card-header">FAQ</span>
-                        <FontAwesomeIcon icon={faQuestion} className="card-icon"/>
-                    <span className="card-caption">Crypto Q&A to satisfy your deepest curiosities.</span>
+                <Link to="/faq" className="card resources">
+                    <FontAwesomeIcon icon={faQuestion} className="card-icon"/>
+                    <span className="card-header">FAQ</span>             
                 </Link>
 
             </div>
