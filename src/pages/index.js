@@ -1,10 +1,11 @@
 import React from "react"
-import { useStaticQuery, graphql } from 'gatsby'
+import { Link, useStaticQuery, graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import Button from '../components/button/button'
 import Seo from '../components/seo/SEO'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCanadianMapleLeaf } from '@fortawesome/free-brands-svg-icons'
+import { faGraduationCap, faChartLine, faCoins } from '@fortawesome/free-solid-svg-icons'
  
 const Index = () => {
 
@@ -84,6 +85,28 @@ const Index = () => {
               </div>
 
               <Button text="Learn More" url="/learn" ariaLabel="" className=" text-2xl my-3 bg-red-600 hover:bg-red-700" />
+
+              <div className="grid grid-cols-1 md:grid-cols-3 my-5">
+
+                <Link to="/currencies" className="card">
+                    <span className="card-header">Educate</span>
+                        <FontAwesomeIcon icon={faGraduationCap} className="card-icon"/>
+                    <span className="card-caption">Learn all about cryptocurrencies - how they work and how they are traded.</span>
+                </Link>
+
+                <Link to="/trade" className="card">
+                    <span className="card-header">Invest</span>
+                        <FontAwesomeIcon icon={faChartLine} className="card-icon"/>
+                    <span className="card-caption">Turn your new-found knowledge of cryptocurrency into tangible wealth by trading currencies on the live market.</span>
+                </Link>
+
+                <Link to="/trade" className="card">
+                    <span className="card-header">Grow</span>
+                        <FontAwesomeIcon icon={faCoins} className="card-icon"/>
+                    <span className="card-caption">Expand your crypto portfolio and leverage cryptocurrencies against one another to grow your wealth.</span>
+                </Link>
+
+              </div>
 
               <div className="flex flex-col lg:flex-row">
 

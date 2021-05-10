@@ -57,7 +57,7 @@ const path = require('path')
           context: {
             coin,
           },
-          path: `/coins/${coin.slug}`,
+          path: `/currencies/${coin.slug}`,
         })
     })
 

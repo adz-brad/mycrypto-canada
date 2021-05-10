@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import { MDXRenderer } from 'gatsby-plugin-mdx'
 
 const MARKET_QUERY = gql`
   query ($baseSymbol: String!){
@@ -117,104 +118,123 @@ const Coin = ({ pageContext: { coin } }) => {
 
             <div className="w-full flex flex-col md:flex-row items-center py-2 border-b-2 border-primary-600">
 
-                <div className="w-full md:w-3/5 px-1 py-2 line-graph">
+                <div className="w-full sm:px-5 md:w-3/5 xl:w-2/3 px-1 py-2 line-graph">
 
-                            <Tabs>
+                    <Tabs>
 
-                                <TabPanel>
-                                    {cadHourlyDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
-                                    {cadHourlyDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                                    {cadHourlyData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadHourlyData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
-                                </TabPanel>
-                            
-                                <TabPanel>
-                                    {cadMonthlyDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
-                                    {cadMonthlyDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                                    {cadMonthlyData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadMonthlyData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
-                                </TabPanel>
+                        <TabPanel>
+                            {cadHourlyDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
+                            {cadHourlyDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                            {cadHourlyData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadHourlyData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
+                        </TabPanel>
+                    
+                        <TabPanel>
+                            {cadMonthlyDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
+                            {cadMonthlyDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                            {cadMonthlyData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadMonthlyData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
+                        </TabPanel>
 
-                                <TabPanel>
-                                    {cadThreeMonthDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
-                                    {cadThreeMonthDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                                    {cadThreeMonthData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadThreeMonthData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
-                                </TabPanel>
+                        <TabPanel>
+                            {cadThreeMonthDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
+                            {cadThreeMonthDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                            {cadThreeMonthData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadThreeMonthData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
+                        </TabPanel>
 
-                                <TabPanel>
-                                    {cadYearlyDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
-                                    {cadYearlyDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                                    {cadYearlyData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadYearlyData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
-                                </TabPanel>
+                        <TabPanel>
+                            {cadYearlyDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
+                            {cadYearlyDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                            {cadYearlyData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadYearlyData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
+                        </TabPanel>
 
-                                <TabList>
-                                    <Tab>24 H</Tab>
-                                    <Tab>1 MO</Tab>
-                                    <Tab>3 MO</Tab>
-                                    <Tab>1 YR</Tab>
-                                </TabList>
-                            
-                            </Tabs>
+                        <TabList>
+                            <Tab>24 H</Tab>
+                            <Tab>1 MO</Tab>
+                            <Tab>3 MO</Tab>
+                            <Tab>1 YR</Tab>
+                        </TabList>
+                    
+                    </Tabs>
 
                 </div>
 
-
-                <div className="flex flex-col w-full md:w-2/5 py-2 ml-5">
+                <div className="flex flex-col w-full md:w-2/5 xl:w-1/3 py-2 ml-5">
 
                     <div className="flex flex-row items-center">
-                        <h2 className="text-xl font-bold mr-2 text-indigo-300">Symbol:</h2>
-                        <span className="text-lg">{coin.symbol}</span>
+                        <h2 className="text-xl lg:text-2xl font-bold mr-2 text-indigo-300">Symbol:</h2>
+                        <span className="text-lg lg:text-xl">{coin.symbol}</span>
                     </div>
 
                     <div className="flex flex-row items-center">
-                        <h2 className="text-xl font-bold mr-2 text-indigo-300">Market Cap:</h2>
+                        <h2 className="text-xl lg:text-2xl font-bold mr-2 text-indigo-300">Market Cap:</h2>
                         {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                         {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                        {marketData?.asset ? (<span className="text-lg">$ {marketData.asset.marketCap}</span>) : null }
+                        {marketData?.asset ? (<span className="text-lg lg:text-xl">$ {marketData.asset.marketCap}</span>) : null }
                     </div>
 
                     <div className="flex flex-row items-center">
-                        <h2 className="text-xl font-bold mr-2 text-indigo-300">Market Cap Rank:</h2>
+                        <h2 className="text-xl lg:text-2xl font-bold mr-2 text-indigo-300">Market Cap Rank:</h2>
                         {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                         {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                        {marketData?.asset ? (<span className="text-lg">{marketData.asset.marketCapRank}</span>) : null }
+                        {marketData?.asset ? (<span className="text-lg lg:text-xl">{marketData.asset.marketCapRank}</span>) : null }
                     </div>
 
                     <div className="flex flex-row items-center">
-                        <h2 className="text-xl font-bold mr-2 text-indigo-300">Current Supply:</h2>
+                        <h2 className="text-xl lg:text-2xl font-bold mr-2 text-indigo-300">Current Supply:</h2>
                         {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                         {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                        {marketData?.asset ? (<span className="text-lg">{marketData.asset.currentSupply}</span>) : null }
+                        {marketData?.asset ? (<span className="text-lg lg:text-xl">{marketData.asset.currentSupply}</span>) : null }
                     </div>
 
                     <div className="flex flex-row items-center">
-                        <h2 className="text-xl font-bold mr-2 text-indigo-300">Total Supply:</h2>
+                        <h2 className="text-xl lg:text-2xl font-bold mr-2 text-indigo-300">Total Supply:</h2>
                         {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                         {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                        {marketData?.asset ? (<span className="text-lg">{marketData.asset.totalSupply}</span>) : null }
+                        {marketData?.asset ? (<span className="text-lg lg:text-xl">{marketData.asset.totalSupply}</span>) : null }
                     </div>
 
                     <div className="flex flex-row items-center">
-                        <h2 className="text-xl font-bold mr-2 text-indigo-300">Price <small>(CAD)</small>:</h2>
+                        <h2 className="text-xl lg:text-2xl font-bold mr-2 text-indigo-300">Price <small>(CAD)</small>:</h2>
                         {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                         {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                        {marketData?.cadMarket ? (<span className="text-lg">$ {parseFloat(marketData.cadMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
+                        {marketData?.cadMarket ? (<span className="text-lg lg:text-xl">$ {parseFloat(marketData.cadMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
                     </div>
 
                     <div className="flex flex-row items-center">
-                        <h2 className="text-xl font-bold mr-2 text-indigo-300">Price <small>(USD)</small>:</h2>
+                        <h2 className="text-xl lg:text-2xl font-bold mr-2 text-indigo-300">Price <small>(USD)</small>:</h2>
                         {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                         {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
-                        {marketData?.usdMarket ? (<span className="text-lg">$ {parseFloat(marketData.usdMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
+                        {marketData?.usdMarket ? (<span className="text-lg lg:text-xl">$ {parseFloat(marketData.usdMarket.ticker.lastPrice).toFixed(2)}</span>) : null }
                     </div>
 
-                    </div>
+                </div>
 
             </div>
 
-            
             <p className="text-xs p-1 text-secondary-700 font-medium italic leading-tight">CAD prices sourced from Kraken, USD prices sourced from CoinbasePro. Data courtesy of Blocktap.io.</p>
-             
- 
-    </div>
+            
+            <div className="paragraph">
+                <h1 className="paragraph-header">Currency Summary</h1>
+                <MDXRenderer>{coin.summary.markdownNode.childMdx.body}</MDXRenderer>
+            </div>
+
+            <div className="paragraph">
+                <h1 className="paragraph-header">Currency History</h1>
+                <MDXRenderer>{coin.coinHistory.markdownNode.childMdx.body}</MDXRenderer>
+            </div>
+
+            <div className="paragraph">
+                <h1 className="paragraph-header">How Can I Buy {coin.name} in Canada?</h1>
+            </div>
+
+            <div className="paragraph">
+                <h1 className="paragraph-header">Blog Posts</h1>
+            </div>
+
+            <div className="paragraph">
+                <h1 className="paragraph-header">Data References</h1>
+            </div>
+
+        </div>
 
     )
 }
