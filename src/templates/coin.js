@@ -3,6 +3,8 @@ import { useQuery, gql } from '@apollo/client'
 import LineGraph from 'react-line-graph'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 const MARKET_QUERY = gql`
   query ($baseSymbol: String!){
@@ -25,17 +27,6 @@ const MARKET_QUERY = gql`
   }
 `;
 
-const USD_HOURLY_QUERY = gql`
-  query($baseSymbol: String!){
-    timeseries(resolution: _1h, limit: 24, sort: OLD_FIRST) {
-        markets(filter: { exchangeSymbol:{ _in:["CoinbasePro"]} baseSymbol: { _eq: $baseSymbol }, quoteSymbol: { _eq: "USDT" } }) {
-          closePrice
-          percentChange
-        }
-      }
-  }
-`;
-
 const CAD_HOURLY_QUERY = gql`
   query($baseSymbol: String!){
     timeseries(resolution: _1h, limit: 24, sort: OLD_FIRST) {
@@ -43,6 +34,39 @@ const CAD_HOURLY_QUERY = gql`
             closePrice
             percentChange
           }
+      }
+  }
+`;
+
+const CAD_MONTHLY_QUERY = gql`
+  query($baseSymbol: String!){
+    timeseries(resolution: _1d, limit: 31, sort: OLD_FIRST) {
+        markets(filter: { exchangeSymbol:{ _in:["Kraken"]} baseSymbol: { _eq: $baseSymbol }, quoteSymbol: { _eq: "CAD" } }) {
+          closePrice
+          percentChange
+        }
+      }
+  }
+`;
+
+const CAD_THREEMONTH_QUERY = gql`
+  query($baseSymbol: String!){
+    timeseries(resolution: _1d, limit: 62, sort: OLD_FIRST) {
+        markets(filter: { exchangeSymbol:{ _in:["Kraken"]} baseSymbol: { _eq: $baseSymbol }, quoteSymbol: { _eq: "CAD" } }) {
+          closePrice
+          percentChange
+        }
+      }
+  }
+`;
+
+const CAD_YEARLY_QUERY = gql`
+  query($baseSymbol: String!){
+    timeseries(resolution: _1d, limit: 365, sort: OLD_FIRST) {
+        markets(filter: { exchangeSymbol:{ _in:["Kraken"]} baseSymbol: { _eq: $baseSymbol }, quoteSymbol: { _eq: "CAD" } }) {
+          closePrice
+          percentChange
+        }
       }
   }
 `;
@@ -55,28 +79,25 @@ const Coin = ({ pageContext: { coin } }) => {
         pollInterval: 1000
     });
 
-    console.log(marketData);
-
-    const { data: usdHourlyData, error: usdHourlyDataError, loading: usdHourlyDataLoading } = useQuery(USD_HOURLY_QUERY, {
+    const { data: cadHourlyData, error: cadHourlyDataError, loading: cadHourlyDataLoading } = useQuery(CAD_HOURLY_QUERY, {
         variables: { baseSymbol: `${coin.symbol}` },
         pollInterval: 60000
     });
 
-    console.log(usdHourlyData);
+    const { data: cadMonthlyData, error: cadMonthlyDataError, loading: cadMonthlyDataLoading } = useQuery(CAD_MONTHLY_QUERY, {
+        variables: { baseSymbol: `${coin.symbol}` },
+        pollInterval: 86400000
+    });
 
-    const usdHourlyPriceList = usdHourlyData?.timeseries ? ( usdHourlyData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)) ) ) : null;
-  
-    const priceMap = Array.from(usdHourlyPriceList);
-    console.log(priceMap)
+    const { data: cadThreeMonthData, error: cadThreeMonthDataError, loading: cadThreeMonthDataLoading } = useQuery(CAD_THREEMONTH_QUERY, {
+        variables: { baseSymbol: `${coin.symbol}` },
+        pollInterval: 86400000
+    });
 
-    const data = [].concat.apply([], priceMap);
-    console.log(data);
-
-    const props = {
-        data,
-        accent: 'rgba(165, 180, 252,1)',
-        hover: true,
-    };
+    const { data: cadYearlyData, error: cadYearlyDataError, loading: cadYearlyDataLoading } = useQuery(CAD_YEARLY_QUERY, {
+        variables: { baseSymbol: `${coin.symbol}` },
+        pollInterval: 86400000
+    });
 
     return(
 
@@ -94,14 +115,49 @@ const Coin = ({ pageContext: { coin } }) => {
 
             </div>
 
-            <div className="w-full flex flex-row items-center p-2 border-b-2 border-primary-600">
+            <div className="w-full flex flex-col md:flex-row items-center py-2 border-b-2 border-primary-600">
 
-                <div className="h-60 w-3/5 p-2">
-                    <LineGraph {...props}/>
+                <div className="w-full md:w-3/5 px-1 py-2 line-graph">
+
+                            <Tabs>
+
+                                <TabPanel>
+                                    {cadHourlyDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
+                                    {cadHourlyDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                                    {cadHourlyData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadHourlyData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
+                                </TabPanel>
+                            
+                                <TabPanel>
+                                    {cadMonthlyDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
+                                    {cadMonthlyDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                                    {cadMonthlyData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadMonthlyData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
+                                </TabPanel>
+
+                                <TabPanel>
+                                    {cadThreeMonthDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
+                                    {cadThreeMonthDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                                    {cadThreeMonthData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadThreeMonthData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
+                                </TabPanel>
+
+                                <TabPanel>
+                                    {cadYearlyDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="lg" /> : null}
+                                    {cadYearlyDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
+                                    {cadYearlyData?.timeseries ? (<LineGraph hover={true} accent="blue" data={[].concat.apply([], Array.from(cadYearlyData.timeseries.map((timeseries) => timeseries.markets.map((market) => parseFloat(market.closePrice).toFixed(2)))))}/>) : null}                       
+                                </TabPanel>
+
+                                <TabList>
+                                    <Tab>24 H</Tab>
+                                    <Tab>1 MO</Tab>
+                                    <Tab>3 MO</Tab>
+                                    <Tab>1 YR</Tab>
+                                </TabList>
+                            
+                            </Tabs>
+
                 </div>
 
 
-                <div className="flex flex-col w-2/5 p-2 ml-5">
+                <div className="flex flex-col w-full md:w-2/5 py-2 ml-5">
 
                     <div className="flex flex-row items-center">
                         <h2 className="text-xl font-bold mr-2 text-indigo-300">Symbol:</h2>
@@ -136,7 +192,7 @@ const Coin = ({ pageContext: { coin } }) => {
                         {marketData?.asset ? (<span className="text-lg">{marketData.asset.totalSupply}</span>) : null }
                     </div>
 
-                    <div className="flex flex-row items-center pt-2">
+                    <div className="flex flex-row items-center">
                         <h2 className="text-xl font-bold mr-2 text-indigo-300">Price <small>(CAD)</small>:</h2>
                         {marketDataLoading ? <FontAwesomeIcon icon={faSpinner} spin size="sm" /> : null}
                         {marketDataError ? <span className="italic text-sm font-medium">Error Loading Data</span> : null}
@@ -155,7 +211,7 @@ const Coin = ({ pageContext: { coin } }) => {
             </div>
 
             
-            <span className="text-xs text-secondary-700 font-medium italic">CAD prices sourced from Kraken, USD prices sourced from CoinbasePro. Data courtesy of Blocktap.io.</span>
+            <p className="text-xs p-1 text-secondary-700 font-medium italic leading-tight">CAD prices sourced from Kraken, USD prices sourced from CoinbasePro. Data courtesy of Blocktap.io.</p>
              
  
     </div>

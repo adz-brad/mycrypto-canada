@@ -201,6 +201,55 @@
         margin:0 10px 0 10px;
     }
 
+    /* ----- LINE GRAPH ----- */
+
+    .line-graph{
+        height:100%;
+    }
+
+    .line-graph .react-tabs, .line-graph .react-tabs__tab-panel{
+        height:100%;
+    }
+
+    .line-graph .react-tabs__tab-list{
+        border:none;
+        margin:0;
+    }
+
+    .line-graph .react-tabs__tab-list li{
+        border:transparent;
+        margin:10px 5px 0px 5px;
+        padding:5px 10px;
+        border-radius:15px;
+        bottom:0;
+        font-family: 'Rajdhani', sans-serif;
+        font-size:1rem;
+        font-weight:700;
+    }
+
+    .line-graph .react-tabs__tab-list li::after{
+        display:none;
+    }
+
+    .line-graph svg path:first-child{
+        stroke:#A5B4FC;
+        stroke-width:2;
+        stroke-linecap:round;
+    }
+
+    .line-graph svg g circle{
+        stroke:black;
+        fill:white;
+    }
+
+    .line-graph svg g line{
+        stroke:white;
+        stroke-width:1;
+        stroke-linecap:round;
+    }
+
+
+
 
 
 
