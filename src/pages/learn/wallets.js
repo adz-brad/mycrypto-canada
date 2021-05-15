@@ -1,6 +1,6 @@
 import React from 'react'
 
-const News = () => {
+const Wallets = () => {
 
     return(
 
@@ -13,4 +13,4 @@ const News = () => {
     )
 }
 
-export default News
+export default Wallets

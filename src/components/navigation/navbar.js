@@ -5,7 +5,6 @@ import { NavLogo, MenuToggle, NavMenu } from './components'
 import { StyledNav } from './components.styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faLinkedinIn, faInstagram, faPinterestP, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 const Navbar = () => {
 
@@ -81,8 +80,6 @@ const Navbar = () => {
 					<Link className="nav-link" to="/blog" alt="" onClick={() => setOpen(!open)}>Blog</Link>
 					<Link className="nav-link" to="/careers" alt="" onClick={() => setOpen(!open)}>Careers</Link>
 					<Link className="nav-link" to="/shop" alt="" onClick={() => setOpen(!open)}>Shop</Link>
-					<Link className="nav-link" to="/search" alt="" onClick={() => setOpen(!open)}><span className="lg:hidden">Search</span><FontAwesomeIcon className="hidden lg:flex" icon={faSearch} /></Link>
-
 				</div>			
 
 				<div>
@@ -96,7 +93,6 @@ const Navbar = () => {
 					</div>
 
 				</div>
-
 
 			</NavMenu>
 

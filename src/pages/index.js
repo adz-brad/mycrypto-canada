@@ -11,17 +11,15 @@ const Index = () => {
 
   const data = useStaticQuery(graphql`
     {
-      news: allGraphCmsPost(filter: {category: {eq: News}} sort: {fields: publishedAt, order: DESC}, limit: 1) {
+      news: allCryptoNews(limit: 1) {
         nodes {
             id
             title
-            excerpt
+            text
             slug
-            coverImage {
-              localFile {
-                childImageSharp {
-                  gatsbyImageData(quality: 100, layout: CONSTRAINED, placeholder: BLURRED)
-                }
+            remoteImage {
+              childImageSharp {
+                gatsbyImageData(quality: 100, layout: CONSTRAINED, placeholder: BLURRED)
               }
             }
           }
@@ -46,7 +44,6 @@ const Index = () => {
 
   const latestNews = data.news.nodes;
   const featuredBlog = data.blog.nodes;
-
   const sharingUrl = typeof window !== 'undefined' ? window.location.href : '';
 
     return (
@@ -115,17 +112,18 @@ const Index = () => {
                   <h1 className="text-3xl lg:text-4xl font-bold my-5 border-b border-primary-600 pt-1">Latest News</h1>
 
                   {latestNews.map((article) => {
+                      
                     return(
 
                       <article className="shadow-lg rounded-lg flex flex-col items-center" key={article.id}>
 
-                        <GatsbyImage image={article.coverImage.localFile.childImageSharp.gatsbyImageData} alt={`${article.title} Image`} className="rounded-t-lg max-h-80"/>
+                        <GatsbyImage image={article.remoteImage.childImageSharp.gatsbyImageData} alt={`${article.title} Image`} className="rounded-t-lg max-h-80 w-full"/>
                       
-                        <h1 className="text-2xl lg:text-4xl font-semibold border-b border-primary-600 w-full mt-3">{article.title}</h1>
+                        <h1 className="text-xl md:text-2xl lg:text-4xl font-semibold border-b border-primary-600 w-full mt-3 tracking-tight leading-none pb-1">{article.title}</h1>
 
-                        <p className="my-1 leading-tight">{article.excerpt}</p>
+                        <p className="pt-2 my-1 leading-tight w-full">{article.text.slice(0,150)}...</p>
 
-                        <Button text="Read More" url={`/news/${article.slug}`} className="text-xl lg:text-2xl bg-primary-900 hover:bg-primary-800 my-4" ariaLabel=""/>
+                        <Button text="Read More" url={`/news/${article.slug}`} className="text-xl lg:text-2xl bg-indigo-700 hover:bg-indigo-900 mt-5" ariaLabel=""/>
                         
                       </article>
                     )
@@ -142,13 +140,11 @@ const Index = () => {
 
                       <article className="shadow-lg rounded-lg flex flex-col items-center" key={post.id}>
 
-                        <GatsbyImage image={post.coverImage.localFile.childImageSharp.gatsbyImageData} alt={`${post.title} Image`} className="rounded-t-lg max-h-80"/>
+                        <GatsbyImage image={post.coverImage.localFile.childImageSharp.gatsbyImageData} alt={`${post.title} Image`} className="rounded-t-lg max-h-80 w-full"/>
                       
-                        <h1 className="text-2xl lg:text-4xl font-semibold border-b border-primary-600 w-full mt-3">{post.title}</h1>
-
-                        <p className="my-1 leading-tight">{post.excerpt}</p>
-
-                        <Button text="Read More" url={`/blog/${post.slug}`} className="text-xl lg:text-2xl bg-primary-900 hover:bg-primary-800 my-4" ariaLabel=""/>
+                        <h1 className="text-xl md:text-2xl lg:text-4xl font-semibold border-b border-primary-600 w-full mt-3 tracking-tight leading-none pb-1">{post.title}</h1>
+                        <p className="my-1 pt-2 leading-tight w-full">{post.excerpt.slice(0,150)}...</p>
+                        <Button text="Read More" url={`/blog/${post.slug}`} className="text-xl lg:text-2xl bg-indigo-700 hover:bg-indigo-900 mt-5" ariaLabel=""/>
                         
                       </article>
                     )

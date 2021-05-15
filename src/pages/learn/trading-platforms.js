@@ -1,16 +1,14 @@
 import React from 'react'
 
-const News = () => {
+const Platforms = () => {
 
     return(
 
         <div>
-
-
             
         </div>
 
     )
 }
 
-export default News
+export default Platforms

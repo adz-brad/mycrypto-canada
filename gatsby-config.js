@@ -1,10 +1,6 @@
 require('dotenv').config()
  
 module.exports = {
-  /*flags: {
-    FAST_DEV: true,
-    FAST_REFRESH: true,
-  },*/
   siteMetadata: {
     title: `myCryptoCanada.ca`,
     description: `myCrypto Canada - Helping Canadians understand Crytocurrency`,
@@ -30,15 +26,14 @@ module.exports = {
         },
       },
     },
-    `gatsby-plugin-styled-components`,
-    `gatsby-plugin-offline`,
-    `gatsby-plugin-netlify`,
-    `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-image`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-postcss`,
-    `gatsby-plugin-mdx`,
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        workboxConfig: {
+          maximumFileSizeToCacheInBytes: 7000000
+        },
+      },
+    },
     {
       resolve: 'gatsby-source-graphcms',
       options: {
@@ -49,10 +44,32 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        indexName: process.env.GATSBY_ALGOLIA_INDEX_NAME,
+        appId: process.env.GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_ADMIN_API_KEY,
+        queries: [
+          {
+            query: require('./src/utils/algoliaQuery'),
+            transformer: require('./src/utils/algoliaTransformer'),
+          },
+        ],
+      }
+    },
+    {
       resolve: `gatsby-source-open-exchange-rates`,
       options: {
         appId: process.env.GATSBY_OPEN_EXCHANGE_RATES_APP_ID,
       }
     },
+    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-netlify`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-image`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-postcss`,
+    `gatsby-plugin-mdx`,
   ],
 }
