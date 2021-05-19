@@ -10,7 +10,7 @@ const { createRemoteFileNode } = require("gatsby-source-filesystem")
 
    /* Source General News */
 
-   const cryptoResponse = await fetch(`https://cryptonews-api.com/api/v1/category?section=general&items=5&type=article&sortby=rank&days=1&token=v4mwca3tgaks4r4fosybnlwlbtuhzqfhl9wbsfj2`);
+   const cryptoResponse = await fetch(`https://cryptonews-api.com/api/v1/category?section=general&items=5&type=article&sortby=rank&days=1&token=${process.env.GATSBY_CRYPTONEWS_API_KEY}`);
    const cryptoNews = await cryptoResponse.json();
    const cryptoArticles = Object.values(cryptoNews.data);
 
@@ -40,6 +40,7 @@ const { createRemoteFileNode } = require("gatsby-source-filesystem")
        ...node,
        id: createNodeId(`BitcoinNews-${node.news_id}`),
        slug: node.title.toString().toLowerCase().normalize('NFD').trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-'),
+       symbol: 'BTC',
        parent: null,
        children: [],
        internal: {
@@ -61,6 +62,7 @@ const { createRemoteFileNode } = require("gatsby-source-filesystem")
        ...node,
        id: createNodeId(`EthereumNews-${node.news_id}`),
        slug: node.title.toString().toLowerCase().normalize('NFD').trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-'),
+       symbol: 'ETH',
        parent: null,
        children: [],
        internal: {
@@ -147,20 +149,8 @@ const { createRemoteFileNode } = require("gatsby-source-filesystem")
                             }
                           }
                     }
-                    value{
-                        markdownNode {
-                            childMdx {
-                              body
-                            }
-                          }
-                    }
-                    trading{
-                        markdownNode {
-                            childMdx {
-                              body
-                            }
-                          }
-                    }
+                    referenceName
+                    referenceUrl
                   }
               }
           },
@@ -193,6 +183,7 @@ const { createRemoteFileNode } = require("gatsby-source-filesystem")
                 image_url
                 news_url
                 date
+                symbol
                 source_name
                 remoteImage {
                   childImageSharp {
@@ -212,6 +203,7 @@ const { createRemoteFileNode } = require("gatsby-source-filesystem")
                 image_url
                 news_url
                 date
+                symbol
                 source_name
                 remoteImage {
                   childImageSharp {
@@ -291,6 +283,8 @@ const { createRemoteFileNode } = require("gatsby-source-filesystem")
           context: {
             coin,
             pageName: coin.name,
+            tag: coin.name.toLowerCase(),
+            symbol: coin.symbol,
           },
           path: `/currencies/${coin.slug}`,
         })

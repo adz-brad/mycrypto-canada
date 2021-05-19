@@ -91,13 +91,13 @@ const Index = () => {
                     <span className="card-caption">Learn all about cryptocurrencies - how they work and how they are traded.</span>
                 </Link>
 
-                <Link to="/trade" className="card">
+                <Link to="/buy-sell-trade" className="card">
                     <span className="card-header">Invest</span>
                         <FontAwesomeIcon icon={faChartLine} className="card-icon"/>
                     <span className="card-caption">Turn your new-found knowledge of cryptocurrency into tangible wealth by trading currencies on the live market.</span>
                 </Link>
 
-                <Link to="/trade" className="card">
+                <Link to="/buy-sell-trade" className="card">
                     <span className="card-header">Grow</span>
                         <FontAwesomeIcon icon={faCoins} className="card-icon"/>
                     <span className="card-caption">Expand your crypto portfolio and leverage cryptocurrencies against one another to grow your wealth.</span>

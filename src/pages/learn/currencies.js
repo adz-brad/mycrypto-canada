@@ -5,7 +5,7 @@ const Currencies = () => {
 
     const data = useStaticQuery(graphql`
       {
-        allGraphCmsCoin {
+        allGraphCmsCoin(sort: {order: ASC, fields: name}) {
             nodes {
               id
               name
@@ -33,8 +33,8 @@ const Currencies = () => {
                 {data.allGraphCmsCoin.nodes.map((coin) => {
                     return(
                         <Link className="flex flex-col items-center cursor-pointer p-2" to={`/currencies/${coin.slug}`} key={coin.id}>
-                            <img className="w-full transform hover:scale-105 p-2" src={coin.icon.url} alt={`${coin.name} Icon`} />
-                            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight">{coin.name}</h1>
+                            <img className="w-3/5 transform hover:scale-105 p-2" src={coin.icon.url} alt={`${coin.name} Icon`} />
+                            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight">{coin.name}</h1>
                         </Link>
                     )
                 })}

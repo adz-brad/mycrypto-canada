@@ -42,6 +42,12 @@
     .button{
         @apply font-headers px-3 py-2 mx-auto text-white font-semibold rounded-md shadow-sm;}
 
+    .bubble{
+        border-radius:10px;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight:700;
+    }
+
     .page-wrapper{
         padding-top:70px;
     }
@@ -200,8 +206,26 @@
         height:100%;
     }
 
-    .line-graph .react-tabs, .line-graph .react-tabs__tab-panel{
-        height:100%;
+    @media screen and (max-width:768px){
+
+        .line-graph .react-tabs, .line-graph .react-tabs__tab-panel{
+            min-height:200px;
+        }
+
+        .line-graph svg{
+            min-height:200px;
+        }
+    }
+
+    @media screen and (min-width:768px){
+
+        .line-graph .react-tabs, .line-graph .react-tabs__tab-panel{
+            min-height:300px;
+        }
+
+        .line-graph svg{
+            min-height:300px;
+        }
     }
 
     .line-graph .react-tabs__tab-list{
@@ -210,14 +234,20 @@
     }
 
     .line-graph .react-tabs__tab-list li{
+        @apply bg-primary-600 text-primary-200 bg-opacity-80;
         border:transparent;
         margin:10px 5px 0px 5px;
-        padding:5px 10px;
+        padding:5px 10px 2px 10px;
         border-radius:15px;
         bottom:0;
         font-family: 'Rajdhani', sans-serif;
         font-size:1rem;
         font-weight:700;
+        line-height:1;
+    }
+
+    .line-graph .react-tabs__tab-list li.react-tabs__tab--selected{
+        @apply bg-indigo-600 text-white font-bold;
     }
 
     .line-graph .react-tabs__tab-list li::after{
@@ -226,7 +256,7 @@
 
     .line-graph svg path:first-child{
         stroke:#A5B4FC;
-        stroke-width:2px;
+        stroke-width:3px;
         stroke-linecap:round;
     }
 
@@ -243,8 +273,31 @@
 
     @media screen and (min-width:600px){
         .line-graph svg path:first-child{
-            stroke-width:1px;
+            stroke-width:2px;
         }
+    }
+
+    .coin-body .react-tabs, .line-graph .react-tabs__tab-panel{
+        height:100%;
+    }
+
+    .coin-body  .react-tabs__tab-list{
+        @apply flex flex-row justify-center items-center;
+        border:none;
+        margin:0;
+    }
+
+    .coin-body  .react-tabs__tab-list li{
+        @apply bg-white text-black rounded-md text-base md:text-lg lg:text-xl m-2 md:mx-4 w-1/4 text-center;
+        border:transparent;
+        padding:5px 12px;
+        bottom:0;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight:700;
+    }
+
+    .coin-body .react-tabs__tab-list li.react-tabs__tab--selected{
+        @apply bg-indigo-600 text-white font-bold;
     }
 
 /* ----- TEXT BODY ----- */
@@ -284,6 +337,7 @@
 .social-sharing-icon{
     @apply text-2xl m-1 transform hover:scale-105 hover:text-indigo-600;
 }
+
 
 
 
