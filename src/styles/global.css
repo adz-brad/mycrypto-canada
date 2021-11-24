@@ -64,7 +64,7 @@
     /* ----- NAV ----- */
 
     .nav-link{
-        @apply text-primary-900 font-bold text-3xl lg:text-white lg:text-2xl lg:font-medium hover:text-primary-600 border-b-2 border-transparent hover:border-red-600 mx-3 my-1;}
+        @apply text-indigo-500 font-bold text-3xl lg:text-white lg:text-2xl lg:font-medium hover:text-primary-600 border-b-2 border-transparent hover:border-red-600 mx-3 my-1;}
 
     .social-link{
         @apply text-primary-900 hover:text-primary-500 lg:text-white mx-2;}

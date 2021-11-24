@@ -8,7 +8,7 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 const Post = ({ pageContext: { post } }) => {
 
-    const sharingUrl = typeof window !== 'undefined' ? window.location.href : '';
+    const sharingUrl = `https://mycryptocanada.netlify.app/blog/${post.slug}`;
 
     return(
 

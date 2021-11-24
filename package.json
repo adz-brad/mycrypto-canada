@@ -1,7 +1,7 @@
 {
   "name": "myCrypto-Canada",
   "private": false,
-  "description": "Cryptocurrency Resources for Canadians",
+  "description": "myCrypto Boilerplate",
   "version": "1.0.0",
   "license": "0BSD",
   "scripts": {
@@ -69,7 +69,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/adrenalize-brad/gatsby-react-bootstrap-starter"
+    "url": "https://github.com/brad-nst/mycrypto-canada"
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"

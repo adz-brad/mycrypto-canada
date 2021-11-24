@@ -70,12 +70,12 @@ const Navbar = () => {
 
 			<MenuToggle open={open} setOpen={setOpen} />
 
-			<NavMenu open={open} setOpen={setOpen} className="hidden bg-white lg:bg-transparent fixed lg:relative flex flex-col lg:flex-row w-full z-40 p-3">
+			<NavMenu open={open} setOpen={setOpen} className="hidden bg-black bg-opacity-90 h-screen lg:bg-transparent fixed lg:relative flex flex-col lg:flex-row w-full z-40 p-3">
 
 				<div className="flex flex-col items-center lg:flex-row mx-auto">
 
 					<Link className="nav-link" to="/learn" alt="" onClick={() => setOpen(!open)}>Learn</Link>
-					<Link className="nav-link" to="/trade" alt="" onClick={() => setOpen(!open)}>Trade</Link>
+					<Link className="nav-link" to="/buy-sell-trade" alt="" onClick={() => setOpen(!open)}>Trade</Link>
 					<Link className="nav-link" to="/news" alt="" onClick={() => setOpen(!open)}>News</Link>
 					<Link className="nav-link" to="/blog" alt="" onClick={() => setOpen(!open)}>Blog</Link>
 					<Link className="nav-link" to="/careers" alt="" onClick={() => setOpen(!open)}>Careers</Link>
